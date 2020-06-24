@@ -1,0 +1,12 @@
+[submodule "layers/meta-raspberrypi"]
+	path = layers/meta-raspberrypi
+	url = git://git.yoctoproject.org/meta-raspberrypi
+	branch = zeus
+[submodule "layers/meta-virtualization"]
+	path = layers/meta-virtualization
+	url = git://git.yoctoproject.org/meta-virtualization
+	branch = zeus
+[submodule "layers/poky"]
+	path = layers/poky
+	url = git://git.yoctoproject.org/poky.git
+	branch = zeus
