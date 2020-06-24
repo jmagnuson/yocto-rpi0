@@ -5,6 +5,39 @@ git clone -b zeus git://git.yoctoproject.org/meta-raspberrypi
 git clone -b zeus git://git.yoctoproject.org/poky.git
 git clone -b zeus git://git.openembedded.org/meta-openembedded
 cd ..
+
+```
+jon@r4 ~/src/jmagnuson/yocto/rpi0/layers $ for dir in *; do (cd $dir; echo "****** $dir ******"; git remote -vv; git status); done
+****** meta-openembedded ******
+origin  git://git.openembedded.org/meta-openembedded (fetch)
+origin  git://git.openembedded.org/meta-openembedded (push)
+On branch zeus
+Your branch is up to date with 'origin/zeus'.
+
+nothing to commit, working tree clean
+****** meta-raspberrypi ******
+jmagnuson       git@github.com:jmagnuson/meta-raspberrypi (fetch)
+jmagnuson       git@github.com:jmagnuson/meta-raspberrypi (push)
+origin  git://git.yoctoproject.org/meta-raspberrypi (fetch)
+origin  git://git.yoctoproject.org/meta-raspberrypi (push)
+On branch zeus-nuke-wireless-regdb
+nothing to commit, working tree clean
+****** meta-virtualization ******
+origin  git://git.yoctoproject.org/meta-virtualization (fetch)
+origin  git://git.yoctoproject.org/meta-virtualization (push)
+On branch zeus
+Your branch is up to date with 'origin/zeus'.
+
+nothing to commit, working tree clean
+****** poky ******
+origin  git://git.yoctoproject.org/poky.git (fetch)
+origin  git://git.yoctoproject.org/poky.git (push)
+On branch zeus
+Your branch is up to date with 'origin/zeus'.
+
+nothing to commit, working tree clean
+```
+
 source layers/poky/oe-init-build-env build
 
 `add_layers.sh` failed with:
@@ -35,6 +68,7 @@ bitbake-layers add-layer ../layers/meta-raspberrypi
 
 all throw:
 
+```
 NOTE: Starting bitbake server...
 Traceback (most recent call last):
   File "/home/jon/src/jmagnuson/yocto/rpi0/layers/poky/bitbake/bin/bitbake-layers", line 93, in <module>
@@ -55,6 +89,7 @@ bb.tinfoil.TinfoilCommandFailed: Traceback (most recent call last):
   File "/home/jon/src/jmagnuson/yocto/rpi0/layers/poky/bitbake/lib/bb/cooker.py", line 1229, in handleCollections
     raise CollectionError("Errors during parsing layer configuration")
 bb.cooker.CollectionError: Errors during parsing layer configuration
+```
 
 
 also `bitbake-layers show-layers`
@@ -79,9 +114,11 @@ but FAILED again
 
 reordered and they added fine
 
+```
 dd if=tmp/deploy/images/raspberrypi0-wifi/rpi-basic-image-raspberrypi0-wifi.rpi-sdimg of=/dev/sdg bs=4M
 
 dd: failed to open '/dev/sdg': Read-only file system
+```
 
 SOLVED by unplugging and replugging (maybe mounting beforehand locked it into RO)
 
