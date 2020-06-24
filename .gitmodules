@@ -14,3 +14,7 @@
 	path = layers/meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
 	branch = zeus
+[submodule "layers/meta-linaro"]
+	path = layers/meta-linaro
+	url = https://git.linaro.org/openembedded/meta-linaro.git
+	branch = zeus
