@@ -3,3 +3,4 @@
 
 RDEPENDS_${PN}_remove += "wireless-regdb"
 RDEPENDS_${PN}_append += "wireless-regdb-static"
+#RDEPENDS_${PN}_append += "hello-single"
