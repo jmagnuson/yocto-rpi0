@@ -63,3 +63,28 @@ Different components of OpenEmbedded are under different licenses (a mix
 of MIT and GPLv2). See LICENSE.GPL-2.0-only and LICENSE.MIT for further
 details of the individual licenses.
 ```
+
+now set up with meta-arm-toolchain, but..
+
+```
+Exception: FileExistsError: [Errno 17] File exists: '/home/jon/src/jmagnuson/yocto/rpi0/build/tmp/sysroots-components/arm1176jzfshf-vfp/external-arm-toolchain/sysroot-providers/linux-libc-headers' -> '/home/jon/src/jmagnuson/yocto/rpi0/build/tmp/work/arm1176jzfshf-vfp-poky-linux-gnueabi/opkg-utils/0.4.2-r0/recipe-sysroot/sysroot-providers/linux-libc-headers'
+
+ERROR: Logfile of failure stored in: /home/jon/src/jmagnuson/yocto/rpi0/build/tmp/work/arm1176jzfshf-vfp-poky-linux-gnueabi/opkg-utils/0.4.2-r0/temp/log.do_prepare_recipe_sysroot.29597
+ERROR: Task (/home/jon/src/jmagnuson/yocto/rpi0/layers/poky/meta/recipes-devtools/opkg-utils/opkg-utils_0.4.2.bb:do_prepare_recipe_sysroot) failed with exit code '1'
+ERROR: Task (/home/jon/src/jmagnuson/yocto/rpi0/layers/poky/meta/recipes-core/zlib/zlib_1.2.11.bb:do_prepare_recipe_sysroot) failed with exit code '1'
+```
+
+tried doing populate_sdk, cleanall, then populate_sdk again...
+
+```
+ERROR: external-arm-toolchain-2019.12-r0 do_packagedata_setscene: The recipe external-arm-toolchain is trying to install files into a shared area when those files already exist. Those files and their manifest location are:
+  /home/jon/src/jmagnuson/yocto/rpi0/build/tmp/pkgdata/raspberrypi0-wifi/runtime/linux-libc-headers
+    (matched in manifest-raspberrypi0_wifi-linux-libc-headers.packagedata)
+  /home/jon/src/jmagnuson/yocto/rpi0/build/tmp/pkgdata/raspberrypi0-wifi/runtime/linux-libc-headers-dev.packaged
+    (matched in manifest-raspberrypi0_wifi-linux-libc-headers.packagedata)
+  /home/jon/src/jmagnuson/yocto/rpi0/build/tmp/pkgdata/raspberrypi0-wifi/runtime/linux-libc-headers-dev
+    (matched in manifest-raspberrypi0_wifi-linux-libc-headers.packagedata)
+Please verify which recipe should provide the above files.
+```
+
+i'm thinking maybe it's just because I have artifacts from non-external toolchain build? maybe wipe out build?
