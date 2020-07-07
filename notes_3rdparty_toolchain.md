@@ -212,3 +212,5 @@ index b6fcc59..3866a98 100644
 +PACKAGE_EXTRA_ARCHS_tune-arm1176jzfshf = "${PACKAGE_EXTRA_ARCHS_tune-armv7ahf} arm1176jzfshf-vfp"
 ```
 
+Installed the resulting toolchain to `/opt/toolchain/rpi0/3.0.3`, tested with a few other projects and works.
+(did I actually test on rpi or armv7? I think both, but the arch is wrong anyway so basically rolling the dice)
