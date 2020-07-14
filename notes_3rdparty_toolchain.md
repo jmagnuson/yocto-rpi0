@@ -214,3 +214,31 @@ index b6fcc59..3866a98 100644
 
 Installed the resulting toolchain to `/opt/toolchain/rpi0/3.0.3`, tested with a few other projects and works.
 (did I actually test on rpi or armv7? I think both, but the arch is wrong anyway so basically rolling the dice)
+
+The resulting local hacks to get external working with meta-rpi and meta-rust-bin:
+
+```diff
+diff --git a/layers/meta-raspberrypi b/layers/meta-raspberrypi
+index 0e05098..ce3ceb7 160000
+--- a/layers/meta-raspberrypi
++++ b/layers/meta-raspberrypi
+@@ -1 +1 @@
+-Subproject commit 0e05098853eea77032bff9cf81955679edd2f35d
++Subproject commit ce3ceb73abd179e46c41aba70d071f81ccc1e6e0
+diff --git a/layers/meta-rust-bin b/layers/meta-rust-bin
+index 3308cea..6e8c185 160000
+--- a/layers/meta-rust-bin
++++ b/layers/meta-rust-bin
+@@ -1 +1 @@
+-Subproject commit 3308cea7916779a16bb605aca9f1941036b6e35a
++Subproject commit 6e8c185f2fc1e60296a0c209210152738953b2e3
+```
+
+These are both stored in local branches:
+
+`meta-rust-bin`: `external-toolchain-support`
+`meta-raspberrypi`: `zeus-external-arm-toolchain`
+
+This is important to note because the external-toolchain stuff is going to be
+reverted to be able to focus on other things, like containerization. But these
+notes will help to pick up where I left off.
