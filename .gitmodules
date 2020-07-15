@@ -31,3 +31,7 @@
 [submodule "layers/meta-docker"]
 	path = layers/meta-docker
 	url = https://github.com/L4B-Software/meta-docker
+[submodule "layers/meta-sdr"]
+	path = layers/meta-sdr
+	url = git://github.com/balister/meta-sdr.git
+	branch = zeus
