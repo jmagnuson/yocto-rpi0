@@ -28,3 +28,6 @@
 	path = layers/meta-gnss-sdr
 	url = https://github.com/carlesfernandez/meta-gnss-sdr
 	branch = zeus
+[submodule "layers/meta-docker"]
+	path = layers/meta-docker
+	url = https://github.com/L4B-Software/meta-docker
