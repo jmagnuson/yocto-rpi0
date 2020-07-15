@@ -35,3 +35,7 @@
 	path = layers/meta-sdr
 	url = git://github.com/balister/meta-sdr.git
 	branch = zeus
+[submodule "layers/meta-qt5"]
+	path = layers/meta-qt5
+	url = git://github.com/meta-qt5/meta-qt5.git
+	branch = zeus
