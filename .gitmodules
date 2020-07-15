@@ -24,3 +24,7 @@
 [submodule "layers/meta-rust-bin"]
 	path = layers/meta-rust-bin
 	url = https://github.com/rust-embedded/meta-rust-bin
+[submodule "layers/meta-gnss-sdr"]
+	path = layers/meta-gnss-sdr
+	url = https://github.com/carlesfernandez/meta-gnss-sdr
+	branch = zeus
