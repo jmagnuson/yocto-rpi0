@@ -347,3 +347,57 @@ index c87fa85db9..a6610c19b8 100644
 $ bitbake gnss-sdr-demo-docker
 ```
 WORKS!
+
+now to get onto the existing rpi with docker...
+
+on r4:
+```
+jon@r4 ~/src/jmagnuson/yocto/rpi0/build/tmp/deploy/images/raspberrypi0-wifi $ webserver.sh
+Starting http.server 8000
+Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+192.168.1.44 - - [16/Jul/2020 16:16:10] "GET /gnss-sdr-demo-docker-raspberrypi0-wifi-20200716035855.rootfs.docker HTTP/1.1" 200 -
+```
+
+on rpi:
+the existing image had only used a fraction of the sd card space, so created a new 15G partition for all the docker stuff
+
+```
+root@raspberrypi0-wifi:/mnt/docker# fdisk -l /dev/mmcblk0
+Disk /dev/mmcblk0: 28.84 GiB, 30944526336 bytes, 60438528 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x95726fc9
+
+Device         Boot   Start      End  Sectors  Size Id Type
+/dev/mmcblk0p1 *       8192    90111    81920   40M  c W95 FAT32 (LBA)
+/dev/mmcblk0p2        90112  4833279  4743168  2.3G 83 Linux
+/dev/mmcblk0p3      4833280 36290559 31457280   15G 83 Linux
+
+root@raspberrypi0-wifi:/mnt/docker# lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+mmcblk0     179:0    0 28.8G  0 disk
+|-mmcblk0p1 179:1    0   40M  0 part
+|-mmcblk0p2 179:2    0  2.3G  0 part /
+`-mmcblk0p3 179:3    0   15G  0 part /mnt/docker
+```
+
+and in `/etc/init.d/docker.init`, point data-root to `/mnt/docker`:
+```
+other_args="--pidfile $pidfile --registry-mirror=http://localhost:5000 --insecure-registry=http://localhost:5000 --raw-logs --data-root /mnt/docker/data"
+```
+(restart dockerd)
+
+```
+root@raspberrypi0-wifi:/mnt/docker# wget http://192.168.1.151:8080/gnss-sdr-demo-docker-raspberrypi0-wifi-20200716035855.rootfs.docker
+root@raspberrypi0-wifi:/mnt/docker# docker load --input gnss-sdr-demo-docker-raspberrypi0-wifi-20200716035855.rootfs.docker
+```
+
+```
+docker run -it gnsssdr-demo-arm32v7 bash
+```
+
+for some reason `ls` errors with `Invalid invocation`, but `busybox ls` works fine.
+
+tried playing around with the gnss programs, they run, I'm just not set up to actually use them.
